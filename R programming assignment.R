@@ -1,32 +1,32 @@
-setwd('C:/Users/tanay/OneDrive/Desktop/Coursera')
 ##
 ## I simply set the input x as a matrix
-## and then set the solved value "s" as a null
+## and then set the solved value "j" as a null
 ## then I changed every reference to "mean" to "solve"
-makeCacheMatrix <- function(x = matrix(sample(1:100,9),3,3)) {
-  s <- NULL
-  set <- function(y) {
+makeCacheMatrix <- function(x = matrix()) {
+  j <- NULL
+  set <- function(y){
     x <<- y
-    s <<- NULL
+    j <<- NULL
   }
-  get <- function() x
-  setsolve <- function(solve) s <<- solve
-  getsolve <- function() s
-  list(set = set, get = get,
-       setsolve = setsolve,
-       getsolve = getsolve)
+  get <- function()x
+  setInverse <- function(inverse) j <<- inverse
+  getInverse <- function() j 
+  list(set = set, get = get, 
+       setInverse = setInverse, 
+       getInverse = getInverse)
 }
-##
-## Same here, changed "mean" to "solve" and "m" to "s"
+
+
+
 cacheSolve <- function(x, ...) {
-## Return a matrix that is the inverse of 'x'
-  s <- x$getsolve()
-  if(!is.null(s)) {
+  ## Return a matrix that is the inverse of 'x'
+  j <- x$getInverse()
+  if(!is.null(j)){
     message("getting cached data")
-    return(s)
+    return(j)
   }
-  data <- x$get()
-  s <- solve(data, ...)
-  x$setsolve(s)
-  s
+  mat <- x$get()
+  j <- solve(mat,...)
+  x$setInverse(j)
+  j
 }
